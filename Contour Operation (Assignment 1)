@@ -1,0 +1,201 @@
+import java.awt.Color;
+
+// Inherits values from ImageOperation
+public class ContourOperation implements ImageOperation {
+	public Color[][] doOperation(Color[][] imageArray) {
+		int numOfRows = imageArray.length;
+		int numOfColumns = imageArray[0].length;
+
+// 2-dimensional array to store the processed image
+		Color[][] result = new Color[numOfRows][numOfColumns];
+
+// Loops to access all values of the array
+		for (int i = 0; i < numOfRows; i++)
+			for (int j = 0; j < numOfColumns; j++) {
+
+// If the pixel is located on the top left corner, it will do the calculations of the pixels around it and determine if needs to be a black or white pixel
+				if (i == 0 && j == 0) {
+					if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i + 1][j].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i + 1][j].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i + 1][j].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i][j + 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i][j + 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i][j + 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i + 1][j + 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i + 1][j + 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i + 1][j + 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else {
+						result[i][j] = new Color(255, 255, 255);
+					}
+				}
+
+// If the pixel is located on the bottom left corner, it will do the calculations of the pixels around it and determine if needs to be a black or white pixel
+				else if (i == 0 && j == numOfColumns) {
+					if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i + 1][j].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i + 1][j].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i + 1][j].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i + 1][j - 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i + 1][j - 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i + 1][j - 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i][j + 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i][j + 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i][j + 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else {
+						result[i][j] = new Color(255, 255, 255);
+					}
+				}
+
+// If the pixel is located on the top right corner, it will do the calculations of the pixels around it and determine if needs to be a black or white pixel
+				else if (i == numOfRows && j == 0) {
+					if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i][j + 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i][j + 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i][j + 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i - 1][j + 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i - 1][j + 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i - 1][j + 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i - 1][j].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i - 1][j].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i - 1][j].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else {
+						result[i][j] = new Color(255, 255, 255);
+					}
+				}
+
+// If the pixel is located on the bottom right corner, it will do the calculations of the pixels around it and determine if needs to be a black or white pixel
+				else if (i == numOfRows && j == numOfColumns) {
+					if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i][j - 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i][j - 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i][j - 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i - 1][j - 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i - 1][j - 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i - 1][j - 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i - 1][j].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i - 1][j].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i - 1][j].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else {
+						result[i][j] = new Color(255, 255, 255);
+					}
+				}
+
+// If the pixel is located between top left corner and bottom left corner, it will do the calculations of the pixels around it and determine if needs to be a black or white pixel
+				else if (0 < i && i < numOfRows - 1 && j == 0) {
+					if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i][j + 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i][j + 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i][j + 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i + 1][j].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i + 1][j].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i + 1][j].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i + 1][j + 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i + 1][j + 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i + 1][j + 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i - 1][j + 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i - 1][j + 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i - 1][j + 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i - 1][j].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i - 1][j].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i - 1][j].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else {
+						result[i][j] = new Color(255, 255, 255);
+					}
+				}
+
+// If the pixel is located between the top right corner and bottom right corner, it will do the calculations of the pixels around it and determine if needs to be a black or white pixel
+				else if (i == 0 && 0 < j && j < numOfColumns - 1) {
+					if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i][j + 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i][j + 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i][j + 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i + 1][j].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i + 1][j].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i + 1][j].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i + 1][j + 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i + 1][j + 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i + 1][j + 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i + 1][j - 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i + 1][j - 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i + 1][j - 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i][j - 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i][j - 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i][j - 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else {
+						result[i][j] = new Color(255, 255, 255);
+					}
+				}
+
+// If the pixel is any pixel in the picture except for the corners, it will do the calculations of the pixels around it and determine if needs to be a black or white pixel	
+				else if (0 < i && i < numOfRows - 1 && 0 < j && j < numOfColumns - 1) {
+					if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i][j + 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i][j + 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i][j + 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i + 1][j].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i + 1][j].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i + 1][j].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i + 1][j + 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i + 1][j + 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i + 1][j + 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i + 1][j - 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i + 1][j - 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i + 1][j - 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i][j - 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i][j - 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i][j - 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i - 1][j + 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i - 1][j + 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i - 1][j + 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i - 1][j].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i - 1][j].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i - 1][j].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i - 1][j - 1].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i - 1][j - 1].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i - 1][j - 1].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else {
+						result[i][j] = new Color(255, 255, 255);
+					}
+				}
+
+// If the pixel is located on the outside borders, it will do the calculations of the pixels around it and determine if needs to be a black or white pixel
+				else if (0 < i && i < numOfRows && 0 < j && j < numOfColumns) {
+					if (Math.sqrt(Math.pow(imageArray[i][j].getRed() - imageArray[i][j].getRed(), 2)
+							+ Math.pow(imageArray[i][j].getGreen() - imageArray[i][j].getGreen(), 2)
+							+ Math.pow(imageArray[i][j].getBlue() - imageArray[i][j].getBlue(), 2)) > 65) {
+						result[i][j] = new Color(0, 0, 0);
+					} else {
+						result[i][j] = new Color(255, 255, 255);
+					}
+				}
+
+
+			}
+// Returns the array for image printing with the modifications
+		return result;
+	}
+}
