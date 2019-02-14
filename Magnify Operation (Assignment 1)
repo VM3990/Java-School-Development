@@ -1,0 +1,32 @@
+import java.awt.Color;
+
+//Inherits values from ImageOperation
+public class MagnifyOperation implements ImageOperation {
+	public Color[][] doOperation(Color[][] imageArray) {
+		int numOfRows = imageArray.length;
+		int numOfColumns = imageArray[0].length;
+
+// Doubles the rows and columns of the original array to allow for magnification of the pixels
+		Color[][] result = new Color[(int) numOfRows * 2][(int) numOfColumns * 2];
+
+// Loops and goes through each value of the array to modify the pixel to magnify it
+		for (int i = 0; i < numOfRows; i++)
+			for (int j = 0; j < numOfColumns; j++) {
+// Creates and assigns values the are double the original for magnification
+				int I = i * 2;
+				int J = j * 2;
+// Assigns the colors to variables
+				int red = imageArray[i][j].getRed();
+				int green = imageArray[i][j].getGreen();
+				int blue = imageArray[i][j].getBlue();
+// Assigns the colors to the new array to magnify the image
+				result[I][J] = new Color(red, green, blue);
+				result[I + 1][J] = new Color(red, green, blue);
+				result[I][J + 1] = new Color(red, green, blue);
+				result[I + 1][J + 1] = new Color(red, green, blue);
+			}
+// Returns the array for image printing with the modifications
+		return result;
+	}
+
+}
