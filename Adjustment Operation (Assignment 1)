@@ -1,0 +1,33 @@
+import java.awt.Color;
+
+//Inherits values from ImageOperation
+public class AdjustmentOperation implements ImageOperation {
+	public Color[][] doOperation(Color[][] imageArray) {
+		int numOfRows = imageArray.length;
+		int numOfColumns = imageArray[0].length;
+
+// 2-dimensional array to store the processed image
+		Color[][] result = new Color[numOfRows][numOfColumns];
+
+// Formula of the maximum distance of the pixel
+		double M = Math.sqrt(Math.pow(numOfRows, 2) + Math.pow(numOfColumns, 2));
+
+// Loops and goes through each value of the array to modify the pixel to adjust the picture to create the darkness
+		for (int i = 0; i < numOfRows; i++)
+			for (int j = 0; j < numOfColumns; j++) {
+// Formula for the distance from the upper corner to the pixel
+				double D = Math.sqrt(Math.pow(i, 2) + Math.pow(j, 2));
+// Brightness Adjustment formula
+				double adjustBrightness = D / M;
+// For each color it adjusts the brightness
+				int red = (int) (Math.round(imageArray[i][j].getRed() * adjustBrightness));
+				int green = (int) (Math.round(imageArray[i][j].getGreen() * adjustBrightness));
+				int blue = (int) (Math.round(imageArray[i][j].getBlue() * adjustBrightness));
+// Modifies the array and assigns the new value
+				result[i][j] = new Color(red, green, blue);
+			}
+// Returns the array for image printing with the modifications
+		return result;
+
+	}
+}
