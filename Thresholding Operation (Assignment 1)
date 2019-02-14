@@ -1,0 +1,31 @@
+import java.awt.Color;
+
+//Inherits values from ImageOperation
+public class ThresholdingOperation implements ImageOperation {
+	public Color[][] doOperation(Color[][] imageArray) {
+		int numOfRows = imageArray.length;
+		int numOfColumns = imageArray[0].length;
+
+// 2-dimensional array to store the processed image
+		Color[][] result = new Color[numOfRows][numOfColumns];
+// Loops and goes through each value of the array to modify the pixel to adjust the picture to create the darkness
+		for (int i = 0; i < numOfRows; i++)
+			for (int j = 0; j < numOfColumns; j++) {
+// Assigns the colors to variables
+				int red = imageArray[i][j].getRed();
+				int green = imageArray[i][j].getGreen();
+				int blue = imageArray[i][j].getBlue();
+// Creates a formula for brightness score
+				double brightnessScore = (0.21 * red) + (0.71 * green) + (0.07 * blue);
+// If the brightness score has a value greater than 100 , it assigns it to a white pixel otherwise it is a black pixel
+				if (brightnessScore > 100.00) {
+					result[i][j] = new Color(255, 255, 255);
+				} else {
+					result[i][j] = new Color(0, 0, 0);
+				}
+			}
+// Returns the array for image printing with the modifications
+		return result;
+	}
+
+}
